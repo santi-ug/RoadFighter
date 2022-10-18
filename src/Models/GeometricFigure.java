@@ -1,5 +1,6 @@
 package Models;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 /**
@@ -7,6 +8,8 @@ import java.awt.Rectangle;
  * @author Santi
  */
 public class GeometricFigure {
+    private Color borderColor;
+    private Color fillColor;
     private int direction;
     private Rectangle hitbox;
     private boolean machine;
@@ -14,8 +17,10 @@ public class GeometricFigure {
     public GeometricFigure() {
     }
 
-    public GeometricFigure(int direction) {
+    public GeometricFigure(int direction, Color borderColor, Color fillColor) {
         this.direction = direction;
+        this.borderColor = borderColor;
+        this.fillColor = fillColor;
         this.machine = true;
     }
 
@@ -59,6 +64,34 @@ public class GeometricFigure {
      */
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
+    }
+
+    /**
+     * @return the borderColor
+     */
+    public Color getBorderColor() {
+        return borderColor;
+    }
+
+    /**
+     * @param borderColor the borderColor to set
+     */
+    public void setBorderColor(Color borderColor) {
+        this.borderColor = borderColor;
+    }
+
+    /**
+     * @return the fillColor
+     */
+    public Color getFillColor() {
+        return fillColor;
+    }
+
+    /**
+     * @param fillColor the fillColor to set
+     */
+    public void setFillColor(Color fillColor) {
+        this.fillColor = fillColor;
     }
     
     

@@ -1,5 +1,7 @@
 package Models;
 
+import java.awt.Color;
+
 /**
  *
  * @author Santi
@@ -11,8 +13,8 @@ public class Polygon extends GeometricFigure {
     public Polygon() {
     }
 
-    public Polygon(int direction, int[] x, int[] y) {
-        super(direction);
+    public Polygon(int direction, Color borderColor, Color fillColor, int[] x, int[] y) {
+        super(direction, borderColor, fillColor);
         this.x = x;
         this.y = y;
     }

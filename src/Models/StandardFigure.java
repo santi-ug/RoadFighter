@@ -1,5 +1,7 @@
 package Models;
 
+import java.awt.Color;
+
 /**
  *
  * @author Santi
@@ -12,7 +14,7 @@ public abstract class StandardFigure extends GeometricFigure {
     }
 
     public StandardFigure(int direction, int x, int y) {
-        super(direction);
+        super(direction, null, null);
         this.x = x;
         this.y = y;
     }

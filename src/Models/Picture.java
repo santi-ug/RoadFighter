@@ -4,15 +4,15 @@ package Models;
  *
  * @author Santi
  */
-public class Image extends StandardFigure {
+public class Picture extends StandardFigure {
     private String url;
     private int height;
     private int width;
 
-    public Image() {
+    public Picture() {
     }
 
-    public Image(int direction, int x, int y, String url, int height, int width) {
+    public Picture(int direction, int x, int y, String url, int height, int width) {
         super(direction, x, y);
         this.url = url;
         this.height = height;
