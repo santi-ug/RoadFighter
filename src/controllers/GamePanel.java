@@ -32,14 +32,13 @@ public class GamePanel extends javax.swing.JPanel{
         this.game = game;
         
         addKeyListener(new KeyboardInputs(this));
+        this.setFocusable(true);
         setPanelSize();
     }
     
     private void setPanelSize() {
         Dimension size = new Dimension(1280, 720);
-        setMinimumSize(size);
         setPreferredSize(size);
-        setMaximumSize(size);
     }
     
     public void updateGame() {

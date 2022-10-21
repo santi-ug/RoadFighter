@@ -25,7 +25,6 @@ public class KeyboardInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_RIGHT:
-                System.out.println("RIGHT");
                 this.gamePanel.getGame().getPlayer().setRight(true);
                 break;
             case KeyEvent.VK_LEFT:
