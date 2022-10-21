@@ -1,4 +1,4 @@
-package Models;
+package entities;
 
 import java.awt.Rectangle;
 
@@ -9,8 +9,7 @@ import java.awt.Rectangle;
 public class Picture {
     private String url;
     private boolean machine;
-    private int x;
-    private int y;
+    protected int x, y;
     private int height;
     private int width;
     private Rectangle hitbox;
@@ -25,30 +24,11 @@ public class Picture {
         this.y = y;
         this.height = height;
         this.width = width;
+        this.setHitbox(new Rectangle(x, y, width, height));
     }
     
     public void updateHitbox() {
         this.getHitbox().setLocation(this.getX(), this.getY());
-    }
-
-    public void moveR(int dist) {
-        this.setX(this.getX() + dist);
-        updateHitbox();
-    }
-    
-    public void moveL(int dist) {
-        this.setX(this.getX() - dist);
-        updateHitbox();
-    }
-    
-    public void moveUp(int dist) {
-        this.setY(this.getY() - dist);
-        updateHitbox();
-    }
-    
-    public void moveDown(int dist) {
-        this.setY(this.getY() + dist);
-        updateHitbox();
     }
 
     /**

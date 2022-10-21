@@ -1,12 +1,13 @@
-package Controllers;
+package controllers;
 
-import Inputs.KeyboardInputs;
-import Models.Car;
-import Models.Picture;
+import inputs.KeyboardInputs;
+import entities.Player;
+import entities.Picture;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
 import static java.lang.Double.max;
 import static java.lang.Math.random;
 import static java.lang.Math.max;
@@ -22,16 +23,16 @@ import javax.swing.JOptionPane;
  */
 public class GamePanel extends javax.swing.JPanel{
     
-    private int frames = 0;
-    private long lastCheck = 0;
+    private Game game;
     
     /**
      * Creates new form Canvas
      */
-    public GamePanel() {
+    public GamePanel(Game game) {
+        this.game = game;
+        
         addKeyListener(new KeyboardInputs(this));
         setPanelSize();
-        
     }
     
     private void setPanelSize() {
@@ -41,21 +42,27 @@ public class GamePanel extends javax.swing.JPanel{
         setMaximumSize(size);
     }
     
+    public void updateGame() {
+        // updatePosition
+    }
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Picture p = new Car("src/Images/playerCar.png", false, 640, 600, 100, 100);
-                      //Car(String url, boolean machine, int x, int y, int height, int width)
-        draw(g, p);
         
+        draw(g, game.getPlayer());
+        //game.render(g);
     }
     
     public void draw(Graphics p, Picture i) {
         Toolkit t = Toolkit.getDefaultToolkit();
         Image pic = t.getImage(i.getUrl());
-        p.drawImage(pic, i.getX(), i.getY(), i.getWidth(), i.getHeight(), this);     
+        p.drawImage(pic, i.getX(), i.getY(), i.getWidth(), i.getHeight(),this);     
     }
     
+    public Game getGame() {
+        return game;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,8 +84,6 @@ public class GamePanel extends javax.swing.JPanel{
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
