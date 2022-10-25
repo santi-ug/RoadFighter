@@ -1,6 +1,10 @@
 package entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 /**
  *
@@ -10,9 +14,9 @@ public class Picture {
     private String url;
     private boolean machine;
     protected int x, y;
-    private int height;
-    private int width;
-    private Rectangle hitbox;
+    protected int height;
+    protected int width;
+    protected Rectangle hitbox;
 
     public Picture() {
     }
@@ -24,13 +28,34 @@ public class Picture {
         this.y = y;
         this.height = height;
         this.width = width;
-        this.setHitbox(new Rectangle(x, y, width, height));
+        initHitbox();
     }
     
-    public void updateHitbox() {
-        this.getHitbox().setLocation(this.getX(), this.getY());
+    public void render(Graphics g) {
+        g.drawImage(this.getImage(this), x, y, width, height, null);  
     }
-
+    
+    protected void drawHitbox(Graphics g) {
+        // See hitbox
+        g.setColor(Color.RED);
+        g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+    }
+    
+    private void initHitbox() {
+        this.hitbox = new Rectangle(x, y, width, height);
+    }
+    
+    protected void updateHitbox() {
+        this.hitbox.x = x;
+        this.hitbox.y = y;
+    }
+    
+    public Image getImage(Picture p) {
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Image img = t.getImage(p.getUrl());
+        return img;
+    }
+    
     /**
      * @return the url
      */
@@ -128,5 +153,7 @@ public class Picture {
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
     }
+
+    
     
 }

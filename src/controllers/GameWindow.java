@@ -29,7 +29,6 @@ public class GameWindow extends javax.swing.JFrame {
 
             @Override
             public void windowLostFocus(WindowEvent e) {
-                System.out.println("pce");
             }
         });
 

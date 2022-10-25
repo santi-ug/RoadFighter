@@ -2,6 +2,9 @@ package controllers;
 
 import entities.Picture;
 import entities.Player;
+import gamestates.Gamestate;
+import gamestates.Menu;
+import gamestates.Playing;
 import java.awt.Graphics;
 
 /**
@@ -16,7 +19,8 @@ public class Game implements Runnable {
     private final int FPS_SET = 144;
     private final int UPS_SET = 200;
 
-    private Player player;
+    private Playing playing;
+    private Menu menu;
 
     public Game() {
             initClasses();
@@ -29,8 +33,8 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
-        player = new Player("src/images/playerCar.png", false, 640, 600, 100, 100);
-                   //Player(String url, boolean machine, int x, int y, int height, int width)
+        menu = new Menu(this);
+        playing = new Playing(this);
     }
 
     private void startGameLoop() {
@@ -39,11 +43,39 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        player.update();
+        switch(Gamestate.state) {
+            
+            case MENU:
+                menu.update();
+                break;
+                
+            case PLAYING:
+                playing.update();
+                break;
+            
+            case QUIT:
+                System.exit(0);
+            default:
+                break;
+            
+        }
     }
 
     public void render(Graphics g) {
-        player.render(g);
+        switch(Gamestate.state) {
+            
+            case MENU:
+                menu.draw(g);
+                break;
+                
+            case PLAYING:
+                playing.draw(g);
+                break;
+            
+            default:
+                break;
+            
+        }
     }
 
     @Override
@@ -82,7 +114,7 @@ public class Game implements Runnable {
 
                     if (System.currentTimeMillis() - lastCheck >= 1000) {
                             lastCheck = System.currentTimeMillis();
-                            System.out.println("FPS: " + frames + " | UPS: " + updates);
+                            System.out.println("FPS: " + frames + " | UPS: " + updates + " | X: " + this.gamePanel.getGame().getPlaying().getPlayer().getX());
                             frames = 0;
                             updates = 0;
                     }
@@ -90,12 +122,17 @@ public class Game implements Runnable {
 
     }
     public void windowFocusLost() {
-        player.resetDirections();
+        if (Gamestate.state == Gamestate.PLAYING) {
+            playing.getPlayer().resetDirections();
+        }
     } 
-            
-            
-    public Player getPlayer() {
-        return player;
+    
+    public Menu getMenu() {
+        return menu;
     }
-        
+    
+    public Playing getPlaying() {
+        return playing;
+    }
+    
 }

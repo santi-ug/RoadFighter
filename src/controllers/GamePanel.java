@@ -49,14 +49,7 @@ public class GamePanel extends javax.swing.JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        draw(g, game.getPlayer());
-        //game.render(g);
-    }
-    
-    public void draw(Graphics p, Picture i) {
-        Toolkit t = Toolkit.getDefaultToolkit();
-        Image pic = t.getImage(i.getUrl());
-        p.drawImage(pic, i.getX(), i.getY(), i.getWidth(), i.getHeight(),this);     
+        game.render(g);
     }
     
     public Game getGame() {
