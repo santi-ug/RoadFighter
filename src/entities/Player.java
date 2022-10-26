@@ -15,9 +15,6 @@ public class Player extends Picture{
     private boolean left, right;
     private float playerSpeed = 2.0f;
     
-    public Player() {
-    }
-    
     public Player(String url, boolean machine, int x, int y, int height, int width) {
         super(url, machine, x, y, height, width);
     }
@@ -26,7 +23,7 @@ public class Player extends Picture{
         updatePos();
         updateHitbox();
     }
-    
+
     @Override
     public void render(Graphics g) {
         // anything in paintcomponents
@@ -43,7 +40,6 @@ public class Player extends Picture{
         } else if (right && !left && x < 776) {
                 x += playerSpeed;
         }
-        
     }
     
     public void resetDirections() {

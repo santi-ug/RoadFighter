@@ -29,7 +29,7 @@ public class Menu extends State implements Statemethods {
         g.setColor(Color.WHITE);
         g.drawString("Press K to quit game", 520, 260);
     }
-    // g.drawString("Press SPACE to resume playing", 520, 240);
+    
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {

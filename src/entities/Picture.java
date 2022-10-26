@@ -11,14 +11,19 @@ import java.awt.Toolkit;
  * @author Santi
  */
 public class Picture {
-    private String url;
+    String url;
     private boolean machine;
     protected int x, y;
     protected int height;
     protected int width;
     protected Rectangle hitbox;
-
-    public Picture() {
+    
+    public Picture(String url, boolean machine, int height, int width) {
+        this.url = url;
+        this.machine = machine;
+        this.height = height;
+        this.width = width;
+        initHitbox();
     }
     
     public Picture(String url, boolean machine, int x, int y, int height, int width) {
@@ -30,9 +35,19 @@ public class Picture {
         this.width = width;
         initHitbox();
     }
-    
+
     public void render(Graphics g) {
         g.drawImage(this.getImage(this), x, y, width, height, null);  
+    }
+    
+    public int randomIntValue(int min, int max) {
+        int r = (int)(Math.random()*(max-min)+min);  
+        return r;
+    }
+    
+    public void reset(int x, int y) {
+        this.setX(x);
+        this.setY(y);
     }
     
     protected void drawHitbox(Graphics g) {
@@ -42,11 +57,11 @@ public class Picture {
     }
     
     private void initHitbox() {
-        this.hitbox = new Rectangle(x, y, width, height);
+        this.hitbox = new Rectangle(x + 25, y, 50, height);
     }
     
     protected void updateHitbox() {
-        this.hitbox.x = x;
+        this.hitbox.x = x + 25;
         this.hitbox.y = y;
     }
     
