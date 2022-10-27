@@ -10,8 +10,8 @@ public class BadCar extends Picture{
     
     private float carSpeed = 2.0f;
     
-    public BadCar(String url, boolean machine, int height, int width) {
-        super(url, machine, height, width);
+    public BadCar(String url, int height, int width) {
+        super(url, height, width);
     }
 
     public BadCar(int x) {
@@ -26,7 +26,7 @@ public class BadCar extends Picture{
     @Override
     public void render(Graphics g) {
         g.drawImage(this.getImage(this), x, y, width, height, null);  
-        drawHitbox(g);
+        //drawHitbox(g);
     }
     
     public void updatePos(int yVal) {

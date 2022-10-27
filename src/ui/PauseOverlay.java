@@ -23,7 +23,7 @@ public class PauseOverlay {
     }
     
     private void loadPausedBackground() {
-        pausedBg = new Picture("src/images/paused.png", false, 0, 0, 1280, 1280);
+        pausedBg = new Picture("src/images/paused.png", 0, 0, 1280, 1280);
                    //Player(String url, boolean machine, int x, int y, int height, int width)
     }
     
@@ -44,8 +44,6 @@ public class PauseOverlay {
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
-                playing.unpauseGame();
-                break;
             case KeyEvent.VK_SPACE:
                 playing.unpauseGame();
                 break;

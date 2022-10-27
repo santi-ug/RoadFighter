@@ -15,8 +15,8 @@ public class Player extends Picture{
     private boolean left, right;
     private float playerSpeed = 2.0f;
     
-    public Player(String url, boolean machine, int x, int y, int height, int width) {
-        super(url, machine, x, y, height, width);
+    public Player(String url, int x, int y, int height, int width) {
+        super(url,x, y, height, width);
     }
     
     public void update() {
@@ -26,11 +26,8 @@ public class Player extends Picture{
 
     @Override
     public void render(Graphics g) {
-        // anything in paintcomponents
-        // -- gonna be the list that paints all items
-        
         g.drawImage(this.getImage(this), x, y, width, height, null);  
-        drawHitbox(g);
+        //drawHitbox(g);
     }
     
     private void updatePos() {

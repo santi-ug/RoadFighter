@@ -43,38 +43,21 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        switch(Gamestate.state) {
-            
-            case MENU:
-                menu.update();
-                break;
-                
-            case PLAYING:
-                playing.update();
-                break;
-            
-            case QUIT:
-                System.exit(0);
-            default:
-                break;
-            
+        switch (Gamestate.state) {
+            case MENU -> menu.update();
+            case PLAYING -> playing.update();
+            case QUIT -> System.exit(0);
+            default -> {
+            }
         }
     }
 
     public void render(Graphics g) {
-        switch(Gamestate.state) {
-            
-            case MENU:
-                menu.draw(g);
-                break;
-                
-            case PLAYING:
-                playing.draw(g);
-                break;
-            
-            default:
-                break;
-            
+        switch (Gamestate.state) {
+            case MENU -> menu.draw(g);
+            case PLAYING -> playing.draw(g);
+            default -> {
+            }
         }
     }
 
@@ -93,34 +76,35 @@ public class Game implements Runnable {
             double deltaU = 0;
             double deltaF = 0;
 
-            while (true) {
-                    long currentTime = System.nanoTime();
-
-                    deltaU += (currentTime - previousTime) / timePerUpdate;
-                    deltaF += (currentTime - previousTime) / timePerFrame;
-                    previousTime = currentTime;
-
-                    if (deltaU >= 1) {
-                        update();
-                        updates++;
-                        deltaU--;
-                    }                        
-
-                    if (deltaF >= 1) {
-                        gamePanel.repaint();
-                        frames++;
-                        deltaF--;
-                    }
-
-                    if (System.currentTimeMillis() - lastCheck >= 1000) {
-                            lastCheck = System.currentTimeMillis();
-                            System.out.println("FPS: " + frames + " | UPS: " + updates + " | X: " + this.gamePanel.getGame().getPlaying().getPlayer().getX());
-                            frames = 0;
-                            updates = 0;
-                    }
-            }
+            infoChecker(timePerFrame, timePerUpdate, previousTime, frames, updates, lastCheck, deltaU, deltaF);
 
     }
+
+    public void infoChecker(double timePerFrame, double timePerUpdate, long previousTime, int frames, int updates, long lastCheck, double deltaU, double deltaF) {
+        while (true) {
+            long currentTime = System.nanoTime();
+            deltaU += (currentTime - previousTime) / timePerUpdate;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
+            if (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
+            }
+            if (deltaF >= 1) {
+                gamePanel.repaint();
+                frames++;
+                deltaF--;
+            }
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
+                lastCheck = System.currentTimeMillis();
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                frames = 0;
+                updates = 0;
+            }
+        }
+    }
+
     public void windowFocusLost() {
         if (Gamestate.state == Gamestate.PLAYING) {
             playing.getPlayer().resetDirections();

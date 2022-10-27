@@ -10,8 +10,8 @@ public class Background extends Picture{
     
     private final float bgSpeed = 5.0f;
     
-    public Background(String url, boolean machine, int x, int y, int height, int width) {
-        super(url, machine, x, y, height, width);
+    public Background(String url, int x, int y, int height, int width) {
+        super(url, x, y, height, width);
     }
     
     public void update() {

@@ -16,7 +16,7 @@ public class GameOverOverlay {
     }
 
     private void loadDiedBackground() {
-        diedBg = new Picture("src/images/paused.png", false, 0, 0, 1280, 1280);
+        diedBg = new Picture("src/images/paused.png", 0, 0, 1280, 1280);
                     //Picture(String url, boolean machine, int x, int y, int height, int width)
     }
 
@@ -25,11 +25,15 @@ public class GameOverOverlay {
     }
     public void draw(Graphics g) {
         diedBg.render(g);
+        Font defFont = g.getFont();
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); // PLAY AROUND
+        g.drawString("SCORE: " + Integer.toString(playing.km * 10), 525, 360);
+        g.setFont(defFont);
         g.setColor(Color.RED);
         g.drawString("YOU DIED", 560, 240);
         g.setColor(Color.WHITE);
-        g.drawString("Press R to try again", 520, 280);
-        g.drawString("Press K to quit game", 520, 300);
+        g.drawString("Press R to try again", 540, 280);
+        g.drawString("Press K to quit game", 535, 300);
     }
 
 }

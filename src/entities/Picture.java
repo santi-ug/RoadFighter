@@ -12,23 +12,20 @@ import java.awt.Toolkit;
  */
 public class Picture {
     String url;
-    private boolean machine;
     protected int x, y;
     protected int height;
     protected int width;
     protected Rectangle hitbox;
     
-    public Picture(String url, boolean machine, int height, int width) {
+    public Picture(String url, int height, int width) {
         this.url = url;
-        this.machine = machine;
         this.height = height;
         this.width = width;
         initHitbox();
     }
     
-    public Picture(String url, boolean machine, int x, int y, int height, int width) {
+    public Picture(String url, int x, int y, int height, int width) {
         this.url = url;
-        this.machine = machine;
         this.x = x;
         this.y = y;
         this.height = height;
@@ -82,27 +79,6 @@ public class Picture {
     }
 
     /**
-     * @param url the url to set
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    /**
-     * @return the machine
-     */
-    public boolean isMachine() {
-        return machine;
-    }
-
-    /**
-     * @param machine the machine to set
-     */
-    public void setMachine(boolean machine) {
-        this.machine = machine;
-    }
-
-    /**
      * @return the x
      */
     public int getX() {
@@ -131,47 +107,11 @@ public class Picture {
     }
 
     /**
-     * @return the height
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * @param height the height to set
-     */
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    /**
-     * @return the width
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * @param width the width to set
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
      * @return the hitbox
      */
     public Rectangle getHitbox() {
         return hitbox;
     }
 
-    /**
-     * @param hitbox the hitbox to set
-     */
-    public void setHitbox(Rectangle hitbox) {
-        this.hitbox = hitbox;
-    }
-
-    
     
 }

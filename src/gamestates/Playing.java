@@ -5,7 +5,8 @@ import entities.Background;
 import entities.BadCar;
 import entities.Picture;
 import entities.Player;
-import java.awt.Graphics;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
@@ -13,7 +14,6 @@ import ui.GameOverOverlay;
 import ui.PauseOverlay;
 
 import static utils.HelpMethods.CanMoveHere;
-import static utils.HelpMethods.CanSpawnHere;
 
 /**
  *
@@ -28,20 +28,21 @@ public class Playing extends State implements Statemethods {
     private GameOverOverlay deadOverlay;
     private boolean paused = false;
     private boolean dead = false;
-    
+    public int km = 0;
+
     public Playing(Game game) {
         super(game);
         initClasses();
     }
     
     private void initClasses() {
-        bg = new Background("src/images/background6.png", false, 0, -570, 1280, 1280);
-        player = new Player("src/images/playerCar.png", false, 580, 600, 100, 100);
+        bg = new Background("src/images/background.png", 0, -570, 1280, 1280);
+        player = new Player("src/images/playerCar.png", 580, 600, 100, 100);
                    //Player(String url, boolean machine, int x, int y, int height, int width)
         badCars = new LinkedList<>();
-        BadCar bc1 = new BadCar("src/images/badCar.png", false, 100, 100);
-        BadCar bc2 = new BadCar("src/images/badCar.png", false, 100, 100);
-        BadCar bc3 = new BadCar("src/images/badCar.png", false, 100, 100);
+        BadCar bc1 = new BadCar("src/images/badCar.png", 100, 100);
+        BadCar bc2 = new BadCar("src/images/badCar.png", 100, 100);
+        BadCar bc3 = new BadCar("src/images/badCar.png", 100, 100);
         bc1.setX(bc1.randomIntValue(379, 775));
         bc1.setY(bc1.randomIntValue(-570, 0));
         
@@ -82,6 +83,7 @@ public class Playing extends State implements Statemethods {
                 dead = true;
                 deadOverlay.update();
             }
+            km++;
         } else {
             pauseOverlay.update();
         }
@@ -98,11 +100,16 @@ public class Playing extends State implements Statemethods {
         bg.render(g);       // draws bg
         for (BadCar badCar : badCars) badCar.render(g);
         player.render(g);   // draws player
-        
+
+        g.setColor(Color.WHITE);
+        Font defFont = g.getFont();
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); // PLAY AROUND
+        g.drawString("Total KM driven: " + Integer.toString(km * 10), 1000, 100);
+        g.setFont(defFont);
         if (paused) pauseOverlay.draw(g);
         if (dead) deadOverlay.draw(g);
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
@@ -113,7 +120,9 @@ public class Playing extends State implements Statemethods {
                 this.player.setLeft(true);
                 break;
             case KeyEvent.VK_ESCAPE: // PAUSE / UNPAUSE 1
-                paused = !paused;
+                if (!dead) {
+                    paused = !paused;
+                }
                 break;
             case KeyEvent.VK_SPACE: // PAUSE / UNPAUSE 1
                 paused = false;
@@ -152,6 +161,7 @@ public class Playing extends State implements Statemethods {
         }
         unpauseGame();
         dead = false;
+        km = 0;
     }
     
 }
