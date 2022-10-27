@@ -36,13 +36,16 @@ public class Picture {
         initHitbox();
     }
 
+    public Picture(int x) {
+        this.x = x;
+    }
+
     public void render(Graphics g) {
         g.drawImage(this.getImage(this), x, y, width, height, null);  
     }
     
     public int randomIntValue(int min, int max) {
-        int r = (int)(Math.random()*(max-min)+min);  
-        return r;
+        return (int)(Math.random()*(max-min)+min);
     }
     
     public void reset(int x, int y) {

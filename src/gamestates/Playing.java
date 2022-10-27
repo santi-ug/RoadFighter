@@ -8,9 +8,12 @@ import entities.Player;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
+
+import ui.GameOverOverlay;
 import ui.PauseOverlay;
 
 import static utils.HelpMethods.CanMoveHere;
+import static utils.HelpMethods.CanSpawnHere;
 
 /**
  *
@@ -22,7 +25,9 @@ public class Playing extends State implements Statemethods {
     private LinkedList<BadCar> badCars;
     
     private PauseOverlay pauseOverlay;
+    private GameOverOverlay deadOverlay;
     private boolean paused = false;
+    private boolean dead = false;
     
     public Playing(Game game) {
         super(game);
@@ -50,6 +55,7 @@ public class Playing extends State implements Statemethods {
         badCars.add(bc2);
         badCars.add(bc3);
         pauseOverlay = new PauseOverlay(this);
+        deadOverlay = new GameOverOverlay(this);
     }
     
     public void windowFocusLost() {
@@ -66,21 +72,27 @@ public class Playing extends State implements Statemethods {
     
     @Override
     public void update() {
-        if (!paused) {
+        if (!paused && !dead) {
             bg.update();
-            for (BadCar badCar : badCars) {
-                badCar.update();
-            }
+            drawCars();
             if (CanMoveHere(player, badCars)) {
                 player.update();
             } else {
                 System.out.println("collided"); // MAKE DEATH SCREEN SHOW UP HERE
+                dead = true;
+                deadOverlay.update();
             }
         } else {
             pauseOverlay.update();
         }
     }
-    
+
+    private void drawCars() {
+        for (int i = 0; i < badCars.size(); i++) {
+            badCars.get(i).update();
+        }
+    }
+
     @Override
     public void draw(Graphics g) {
         bg.render(g);       // draws bg
@@ -88,6 +100,7 @@ public class Playing extends State implements Statemethods {
         player.render(g);   // draws player
         
         if (paused) pauseOverlay.draw(g);
+        if (dead) deadOverlay.draw(g);
     }
     
     @Override
@@ -104,10 +117,6 @@ public class Playing extends State implements Statemethods {
                 break;
             case KeyEvent.VK_SPACE: // PAUSE / UNPAUSE 1
                 paused = false;
-                break;
-            case KeyEvent.VK_M: // GO TO MENU
-                Gamestate.state = Gamestate.MENU;
-                paused = !paused;
                 break;
             case KeyEvent.VK_R: // RESTART GAME
                 resetGame();
@@ -142,6 +151,7 @@ public class Playing extends State implements Statemethods {
             badCars.get(i).setY(-160 + (badCars.get(i).randomIntValue(0, 2) * 100));
         }
         unpauseGame();
+        dead = false;
     }
     
 }

@@ -13,9 +13,13 @@ public class BadCar extends Picture{
     public BadCar(String url, boolean machine, int height, int width) {
         super(url, machine, height, width);
     }
-    
+
+    public BadCar(int x) {
+        super(x);
+    }
+
     public void update() {
-        updatePos();
+        updatePos(700);
         updateHitbox();
     }
     
@@ -25,12 +29,12 @@ public class BadCar extends Picture{
         drawHitbox(g);
     }
     
-    private void updatePos() {
-        if (y < 700) {
+    public void updatePos(int yVal) {
+        if (y < yVal) {
                 y += carSpeed;
         } else {
                 x = 379 + (this.randomIntValue(0, 5) * 50);
-                y = -160 + (this.randomIntValue(0, 2) * 50);
+                y = -160 + (this.randomIntValue(0, 2) * 70);
         }
         
     }
