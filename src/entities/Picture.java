@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 /**
- *
+ * Father class for player, badcar and background
  * @author Santi
  */
 public class Picture {
@@ -37,14 +37,28 @@ public class Picture {
         this.x = x;
     }
 
+    /**
+     * draws the image given through URL
+     * @param g pencil
+     */
     public void render(Graphics g) {
         g.drawImage(this.getImage(this), x, y, width, height, null);  
     }
-    
+
+    /**
+     * returns a random number between the values given
+     * @param min minimum value
+     * @param max maximum value
+     */
     public int randomIntValue(int min, int max) {
         return (int)(Math.random()*(max-min)+min);
     }
-    
+
+    /**
+     * resets value to given through parameters
+     * @param x new x value
+     * @param y new y value
+     */
     public void reset(int x, int y) {
         this.setX(x);
         this.setY(y);
@@ -55,20 +69,29 @@ public class Picture {
         g.setColor(Color.RED);
         g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
     }
-    
+
+    /**
+     * initializes the hitbox
+     */
     private void initHitbox() {
         this.hitbox = new Rectangle(x + 25, y, 50, height);
     }
-    
+
+    /**
+     * updates the hitbox (offset due to smaller hitbox for more accuracy)
+     */
     protected void updateHitbox() {
         this.hitbox.x = x + 25;
         this.hitbox.y = y;
     }
-    
+
+    /**
+     * necessary action to draw the image - organization
+     * @param p picture to change into image (to draw)
+     */
     public Image getImage(Picture p) {
         Toolkit t = Toolkit.getDefaultToolkit();
-        Image img = t.getImage(p.getUrl());
-        return img;
+        return t.getImage(p.getUrl());
     }
     
     /**
@@ -79,24 +102,10 @@ public class Picture {
     }
 
     /**
-     * @return the x
-     */
-    public int getX() {
-        return x;
-    }
-
-    /**
      * @param x the x to set
      */
     public void setX(int x) {
         this.x = x;
-    }
-
-    /**
-     * @return the y
-     */
-    public int getY() {
-        return y;
     }
 
     /**

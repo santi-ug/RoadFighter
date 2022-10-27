@@ -13,10 +13,9 @@ import java.util.LinkedList;
 import ui.GameOverOverlay;
 import ui.PauseOverlay;
 
-import static utils.HelpMethods.CanMoveHere;
 
 /**
- *
+ * Everything that has to occur when the game is running (on screen) happens here
  * @author Santi
  */
 public class Playing extends State implements Statemethods {
@@ -34,7 +33,10 @@ public class Playing extends State implements Statemethods {
         super(game);
         initClasses();
     }
-    
+
+    /**
+     * initializes all the necessary classes including the 3 enemy cars, the player's car, the background and both the pause and game over overlay.
+     */
     private void initClasses() {
         bg = new Background("src/images/background.png", 0, -570, 1280, 1280);
         player = new Player("src/images/playerCar.png", 580, 600, 100, 100);
@@ -58,19 +60,17 @@ public class Playing extends State implements Statemethods {
         pauseOverlay = new PauseOverlay(this);
         deadOverlay = new GameOverOverlay(this);
     }
-    
-    public void windowFocusLost() {
-        player.resetDirections();
-    }    
-            
+
+    /**
+     * returns player
+     */
     public Player getPlayer() {
         return player;
     }
-    
-    public Background getBackground() {
-        return bg;
-    }
-    
+
+    /**
+     * everytime this runs it updates the background, the cars, the player and the collisions as well as the KM score. (depending if the 'if's are met)
+     */
     @Override
     public void update() {
         if (!paused && !dead) {
@@ -81,20 +81,39 @@ public class Playing extends State implements Statemethods {
             } else {
                 System.out.println("collided"); // MAKE DEATH SCREEN SHOW UP HERE
                 dead = true;
-                deadOverlay.update();
             }
             km++;
-        } else {
-            pauseOverlay.update();
         }
     }
 
+    /**
+     * checks for a collision between the player and any enemy car
+     * @param p player
+     * @param badCars linkedlist of the enemy cars
+     */
+    public static boolean CanMoveHere(Player p, LinkedList<BadCar> badCars) {
+        boolean canMoveHere = true;
+        int i = 0;
+        while (canMoveHere && i < badCars.size()) {
+            if (p.getHitbox().intersects(badCars.get(i).getHitbox())) canMoveHere = false;
+            i++;
+        }
+        return canMoveHere;
+    }
+
+    /**
+     * draws the cars
+     */
     private void drawCars() {
-        for (int i = 0; i < badCars.size(); i++) {
-            badCars.get(i).update();
-        }
+        for (BadCar badCar : badCars) { badCar.update(); }
     }
 
+    /**
+     * draws the background, the enemy cars, and the player, as well as the score.
+     *      if the screen is paused, it draws the pause overlay
+     *      if the player died it draws the game over overlay
+     * @param g pencil
+     */
     @Override
     public void draw(Graphics g) {
         bg.render(g);       // draws bg
@@ -110,6 +129,10 @@ public class Playing extends State implements Statemethods {
         if (dead) deadOverlay.draw(g);
     }
 
+    /**
+     * actions when a specific key is pressed
+     * @param e Key event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
@@ -136,32 +159,37 @@ public class Playing extends State implements Statemethods {
         }
     }
 
+    /**
+     * actions when a specific key is released
+     * @param e Key event
+     */
     @Override
     public void keyReleased(KeyEvent e) {
-        switch(e.getKeyCode()) {
-            case KeyEvent.VK_RIGHT:
-                this.player.setRight(false);
-                break;
-            case KeyEvent.VK_LEFT:
-                this.player.setLeft(false);
-                break;
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_RIGHT -> this.player.setRight(false);
+            case KeyEvent.VK_LEFT -> this.player.setLeft(false);
         }
     }
-    
+
+    /**
+     * unpauses the game
+     */
     public void unpauseGame() {
         paused = false;
     }
-    
+
+    /**
+     * resets the game to the inicial values for a clean restart
+     */
     public void resetGame() {
         bg.reset(-0, 1280);
         player.reset(580, 600);
-        for (int i = 0; i < badCars.size(); i++) {
-            badCars.get(i).setX(379 + (badCars.get(i).randomIntValue(0, 5) * 50));
-            badCars.get(i).setY(-160 + (badCars.get(i).randomIntValue(0, 2) * 100));
+        for (BadCar badCar : badCars) {
+            badCar.setX(379 + (badCar.randomIntValue(0, 5) * 50));
+            badCar.setY(-160 + (badCar.randomIntValue(0, 2) * 100));
         }
         unpauseGame();
         dead = false;
         km = 0;
     }
-    
 }

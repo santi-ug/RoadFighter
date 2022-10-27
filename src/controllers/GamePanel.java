@@ -15,18 +15,16 @@ import static java.lang.Math.min;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
-
-
 /**
- *
+ * The Canvas where everything is drawn, it's the visual that makes the game visible
  * @author Santi
  */
 public class GamePanel extends javax.swing.JPanel{
     
-    private Game game;
+    private final Game game;
     
     /**
-     * Creates new form Canvas
+     * Creates new form GamePanel
      */
     public GamePanel(Game game) {
         this.game = game;
@@ -35,23 +33,29 @@ public class GamePanel extends javax.swing.JPanel{
         this.setFocusable(true);
         setPanelSize();
     }
-    
+
+    /**
+     * sets the size of the panel (organization)
+     */
     private void setPanelSize() {
         Dimension size = new Dimension(1280, 720);
         setPreferredSize(size);
     }
-    
-    public void updateGame() {
-        // updatePosition
-    }
-    
+
+    /**
+     * MAIN draw tool and draws EVERYTHING that needs to ever be drawn in the entire game
+     * @param g pencil
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
         game.render(g);
     }
-    
+
+    /**
+     * returns game
+     */
     public Game getGame() {
         return game;
     }

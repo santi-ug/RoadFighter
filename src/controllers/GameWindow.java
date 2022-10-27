@@ -6,7 +6,7 @@ import java.awt.event.WindowFocusListener;
 import javax.swing.JFrame;
 
 /**
- *
+ * the frame that holds the screen of the entire game
  * @author Santi
  */
 public class GameWindow extends javax.swing.JFrame {
@@ -22,16 +22,23 @@ public class GameWindow extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.addWindowFocusListener(new WindowFocusListener() {
+            /**
+             * calls function that kills player movement when window is unfocused
+             * @param e window event
+             */
             @Override
             public void windowGainedFocus(WindowEvent e) {
                 gamePanel.getGame().windowFocusLost();
             }
 
+            /**
+             * obligational due to the other function existing
+             * @param e window even
+             */
             @Override
             public void windowLostFocus(WindowEvent e) {
             }
         });
-
     }
 
     /**

@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 /**
- *
+ * in charge of controlling the initial menu and anything that has to occur / be drawn when it is active
  * @author Santi
  */
 public class Menu extends State implements Statemethods {
@@ -14,12 +14,17 @@ public class Menu extends State implements Statemethods {
     public Menu(Game game) {
         super(game);
     }
-    
-    @Override
-    public void update() {
-        
-    }
 
+    /**
+     * this function is here due to statemethods having it (makes it obligational)
+     */
+    @Override
+    public void update() {}
+
+    /**
+     * draws the menu screen
+     * @param g pencil
+     */
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.BLACK);
@@ -29,7 +34,11 @@ public class Menu extends State implements Statemethods {
         g.setColor(Color.WHITE);
         g.drawString("Press K to quit game", 520, 260);
     }
-    
+
+    /**
+     * actions when a specific key is pressed
+     * @param e Key event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -40,9 +49,10 @@ public class Menu extends State implements Statemethods {
         }
     }
 
+    /**
+     * this function is here due to statemethods having it (makes it obligational)
+     * @param e Key event
+     */
     @Override
-    public void keyReleased(KeyEvent e) {
-        
-    }
-    
+    public void keyReleased(KeyEvent e) {}
 }

@@ -3,7 +3,7 @@ package gamestates;
 import controllers.Game;
 
 /**
- *
+ * Parent for Playing and Menu states (mainly for organization)
  * @author Santi
  */
 public class State {
@@ -13,9 +13,10 @@ public class State {
     public State(Game game) {
         this.game = game;
     }
-    
-    public Game getGame() {
-        return game;
-    }
-    
+
+    /**
+     * returns game
+     */
+    public Game getGame() { return game; }
+
 }

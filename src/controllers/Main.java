@@ -1,7 +1,7 @@
 package controllers;
 
 /**
- *
+ * MAIN THAT RUNS THE ENTIRE GAME
  * @author Santi
  */
 public class Main {

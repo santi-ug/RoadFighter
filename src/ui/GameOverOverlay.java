@@ -5,24 +5,31 @@ import gamestates.Playing;
 
 import java.awt.*;
 
+/**
+ * Class that controls the Game Over screen
+ */
 public class GameOverOverlay {
 
     private Picture diedBg;
-    private Playing playing;
+    private final Playing playing;
 
     public GameOverOverlay(Playing playing) {
         this.playing = playing;
         loadDiedBackground();
     }
 
+    /**
+     * creates the game over background
+     */
     private void loadDiedBackground() {
         diedBg = new Picture("src/images/paused.png", 0, 0, 1280, 1280);
                     //Picture(String url, boolean machine, int x, int y, int height, int width)
     }
 
-    public void update() {
-
-    }
+    /**
+     * draws the game over screen
+     * @param g pencil to draw
+     */
     public void draw(Graphics g) {
         diedBg.render(g);
         Font defFont = g.getFont();
